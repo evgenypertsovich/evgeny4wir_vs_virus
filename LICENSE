@@ -1,0 +1,13 @@
+
+This script automate rollout of cloudformation stack wit AWS Budgets
+(Scope: aws budgets)
+Copyright (C) 2020 Evgeny Pertsovich
+
+This program is Open Source software: you can redistribute it and/or
+modify it
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+

@@ -1,0 +1,97 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description" : "Evgeny for WirVsVirus",
+    "Parameters": {
+        "budgetAmount": {
+            "Description": "Budget limit for Account ($)",
+            "Type": "String",
+            "Default": "500"
+        },
+        "accountAdminEmail": {
+            "Description": "E-mail  of account admin",
+            "Type": "String"
+        },
+        "nameprefix": {
+            "Description": "Perfix for export ",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "AccountBudget":{
+            "Type": "AWS::Budgets::Budget",
+            "Properties": {
+                "Budget": {
+                    "BudgetLimit": {"Amount": {"Ref":"budgetAmount"},"Unit": "USD"},
+                    "TimeUnit": "MONTHLY",
+                    "BudgetType": "COST",
+                    "CostTypes": {
+                        "IncludeSupport" : true,
+                        "IncludeOtherSubscription" : true,
+                        "IncludeTax" : true,
+                        "IncludeSubscription" : true,
+                        "UseBlended" : false,
+                        "IncludeUpfront" : true,
+                        "IncludeDiscount" : true,
+                        "IncludeCredit" : false,
+                        "IncludeRecurring" : true,
+                        "UseAmortized" : false,
+                        "IncludeRefund" : false
+                    }
+                },
+                "NotificationsWithSubscribers": [
+                    {
+                        "Notification": {
+                            "NotificationType": "FORECASTED",
+                            "ComparisonOperator": "GREATER_THAN",
+                            "Threshold": 80,
+                            "ThresholdType" : "PERCENTAGE"
+                        },
+                        "Subscribers": [
+                            {"SubscriptionType": "EMAIL", "Address": {"Ref": "accountAdminEmail"}}
+                        ]
+                    },
+                    {
+                        "Notification": {
+                            "NotificationType": "ACTUAL",
+                            "ComparisonOperator": "GREATER_THAN",
+                            "Threshold": 50,
+                            "ThresholdType" : "PERCENTAGE"
+                        },
+                        "Subscribers": [
+                            {"SubscriptionType": "EMAIL", "Address": {"Ref": "accountAdminEmail"}}
+                        ]
+                    },
+                    {
+                        "Notification": {
+                            "NotificationType": "ACTUAL",
+                            "ComparisonOperator": "GREATER_THAN",
+                            "Threshold": 80,
+                            "ThresholdType" : "PERCENTAGE"
+                        },
+                        "Subscribers": [
+                            {"SubscriptionType": "EMAIL", "Address": {"Ref": "accountAdminEmail"}}
+                        ]
+                    },
+                    {
+                        "Notification": {
+                            "NotificationType": "ACTUAL",
+                            "ComparisonOperator": "GREATER_THAN",
+                            "Threshold": 95,
+                            "ThresholdType" : "PERCENTAGE"
+                        },
+                        "Subscribers": [
+                            {"SubscriptionType": "EMAIL", "Address": {"Ref": "accountAdminEmail"}}
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs" : {
+        "AccountBudgetExport" : {
+          "Description" : "Budget limit for Account",
+          "Value" : {"Ref":"AccountBudget"},
+          "Export" : {"Name" : {"Fn::Sub":"${nameprefix}-account-budgets"}}
+        }
+      }
+}

@@ -1,0 +1,23 @@
+# Snippets und CloudFormation Templates für "Wir vs Virus Hackathon"
+
+## Kosten tracken mit AWS-Budgets
+Es hilft Überblick über die *Kosten* zu behalten und Benachrichtigung zu kriegen, falls die entstandene oder prognostizierte Kosten *Schwellwerte (50%, 80%, 95%)* erreichen.
+
+* budgets.template - CloudFormation Template für Budgets-Konfiguration
+* deploy.sh - bash Skript für automtisierten Rolout
+
+Default Wert für *budgetAmount* ist auf 500$ gesetzt.
+
+[qanda]
+Wofür ist es gut?::
+  Es hilft Überblick über Kosten zu behalten
+Wie kann ich es nutzen?::
+Direkt über CloudFormation Konsole ausrollen (Services -> Create Stack)
+oder aws cli nutzen Bash-Skript: *deploy.sh*
+----
+deploy.sh <E-Mail Adresse für Benachrichtigung>
+----
+AWS-Budgets was ist es?::
+https://aws.amazon.com/de/aws-cost-management/aws-budgets/
+
+
